@@ -57,26 +57,6 @@ resource "aws_subnet" "private_subnet_az_1b" {
   })
 }
 
-resource "aws_subnet" "backend_subnet_az_1a" {
-  vpc_id     = aws_vpc.practice_vpc.id
-  cidr_block = var.backend_cidr_block[0]
-  availability_zone = var.availability_zone[0]
-
-  tags = merge(var.tags, {
-    Name = "${var.tags["project"]}-${var.tags["application"]}-${var.tags["environment"]}-backend-subnet-az-1a"
-  })
-}
-
-resource "aws_subnet" "backend_subnet_az_1b" {
-  vpc_id     = aws_vpc.practice_vpc.id
-  cidr_block = var.backend_cidr_block[1]
-  availability_zone = var.availability_zone[1]
-
-  tags = merge(var.tags, {
-    Name = "${var.tags["project"]}-${var.tags["application"]}-${var.tags["environment"]}-backend-subnet-az-1b"
-  })
-}
-
 # Configure Route table resource: Public Rt
 resource "aws_route_table" "practice_public_rt" {
   vpc_id = aws_vpc.practice_vpc.id
@@ -141,11 +121,6 @@ resource "aws_route_table_association" "practice_private_rt_association_az_1a" {
   route_table_id = aws_route_table.practice_private_rt_az_1a.id
 }
 
-resource "aws_route_table_association" "practice_backend_rt_association_az_1a" {
-  subnet_id      = aws_subnet.backend_subnet_az_1a.id
-  route_table_id = aws_route_table.practice_private_rt_az_1a.id
-}
-
 # CONFIGURATION FOR AZ-1B-----------
 # Configure Elastic IP for Nat-Gateway in AZ-1b
 resource "aws_eip" "practice_eip_az_1b" {
@@ -182,10 +157,5 @@ resource "aws_route_table" "practice_private_rt_az_1b" {
 # Configure Private Route table association in AZ-1B
 resource "aws_route_table_association" "practice_private_rt_association_az_1b" {
   subnet_id      = aws_subnet.private_subnet_az_1b.id
-  route_table_id = aws_route_table.practice_private_rt_az_1b.id
-}
-
-resource "aws_route_table_association" "practice_backend_rt_association_az_1b" {
-  subnet_id      = aws_subnet.backend_subnet_az_1b.id
   route_table_id = aws_route_table.practice_private_rt_az_1b.id
 }

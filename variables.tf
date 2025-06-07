@@ -10,10 +10,6 @@ variable "private_cidr_block" {
   type = list(string)
 }
 
-variable "backend_cidr_block" {
-  type = list(string)
-}
-
 variable "availability_zone" {
   type = list(string)
 }
@@ -23,5 +19,25 @@ variable "ssl_policy" {
 }
 
 variable "certificate_arn" {
+  type = string
+}
+
+variable "ami" {
+  type = string
+}
+
+variable "instance_type" {
+  type = string
+}
+
+variable "key_name" {
+  type = string
+}
+
+variable "zone_id" {
+  type = string
+}
+
+variable "dns_name" {
   type = string
 }
