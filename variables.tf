@@ -17,3 +17,11 @@ variable "backend_cidr_block" {
 variable "availability_zone" {
   type = list(string)
 }
+
+variable "ssl_policy" {
+  type = string
+}
+
+variable "certificate_arn" {
+  type = string
+}
